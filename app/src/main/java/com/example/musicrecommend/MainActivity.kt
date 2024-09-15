@@ -25,6 +25,12 @@ import android.os.Build
 import android.widget.TextView
 import androidx.core.app.NotificationCompat
 
+/*
+You will need to edit all the example.com to your own url.
+The url should be the address to the server which contains the api server.
+The API server code can be found here: https://github.com/EricKim27/AI-music-recommender-backend
+ */
+
 class MainActivity : AppCompatActivity() {
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var runnable: Runnable
@@ -45,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                     println(myViewModel.Verify())
                     if(myViewModel.Verify() == 0)
                     {
-                        val parsed = myViewModel.getJson("http://onlykim.kro.kr:3000/api/getdata", "emotion")
+                        val parsed = myViewModel.getJson("http://example.com:3000/api/getdata", "emotion")
                         println(parsed)
                         val url: String = set_url(parsed)
                         sendNotification(this@MainActivity, "Music_channel", "당신을 위한 음악", "현재 감정에 알맞는 플레이리스트", url)
@@ -142,7 +148,7 @@ class MyViewModel : ViewModel() {
     }
 
     suspend fun Verify(): Int? {
-        val ret = getJson("http://onlykim.kro.kr:3000/api/status", "status")
+        val ret = getJson("http://example.com:3000/api/status", "status") //modify the url as your own url.
         return ret?.toIntOrNull()
     }
 }
